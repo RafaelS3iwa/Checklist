@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3838164A-3B7D-4775-BFC0-A988AD521528}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Checklist</RootNamespace>
+    <AssemblyName>Checklist</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\Rafael\Downloads\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChecklistsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Cliente\Cliente.cs" />
+    <Compile Include="Classes\Cliente\SessaoId.cs" />
+    <Compile Include="Classes\Item\Item.cs" />
+    <Compile Include="Classes\Item\SessaoItem.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormADM.Designer.cs">
+      <DependentUpon>FormADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\LiberacaoADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\LiberacaoADM.Designer.cs">
+      <DependentUpon>LiberacaoADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\ProofADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\ProofADM.Designer.cs">
+      <DependentUpon>ProofADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\CadastroCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\CadastroCliente.Designer.cs">
+      <DependentUpon>CadastroCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\EditarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\EditarCliente.Designer.cs">
+      <DependentUpon>EditarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Checklists\CadastroItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Checklists\CadastroItem.Designer.cs">
+      <DependentUpon>CadastroItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Checklists\DetalheChecklist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Checklists\DetalheChecklist.Designer.cs">
+      <DependentUpon>DetalheChecklist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Cadastros e Login\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Liberacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Liberacao.Designer.cs">
+      <DependentUpon>Liberacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Preflight.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Preflight.Designer.cs">
+      <DependentUpon>Preflight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\PreflightADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\ADM\PreflightADM.Designer.cs">
+      <DependentUpon>PreflightADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Proof.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\User\Proof.Designer.cs">
+      <DependentUpon>Proof.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Checklists\DetalheChecklistADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Checklists\DetalheChecklistADM.Designer.cs">
+      <DependentUpon>DetalheChecklistADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Checklists\EditarItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Checklists\EditarItem.Designer.cs">
+      <DependentUpon>EditarItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormADM.resx">
+      <DependentUpon>FormADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\ADM\LiberacaoADM.resx">
+      <DependentUpon>LiberacaoADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\ADM\ProofADM.resx">
+      <DependentUpon>ProofADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Cadastros e Login\CadastroCliente.resx">
+      <DependentUpon>CadastroCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Cadastros e Login\EditarCliente.resx">
+      <DependentUpon>EditarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Checklists\CadastroItem.resx">
+      <DependentUpon>CadastroItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Checklists\DetalheChecklist.resx">
+      <DependentUpon>DetalheChecklist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Cadastros e Login\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\User\Liberacao.resx">
+      <DependentUpon>Liberacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\User\Preflight.resx">
+      <DependentUpon>Preflight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\ADM\PreflightADM.resx">
+      <DependentUpon>PreflightADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\User\Proof.resx">
+      <DependentUpon>Proof.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Checklists\DetalheChecklistADM.resx">
+      <DependentUpon>DetalheChecklistADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Checklists\EditarItem.resx">
+      <DependentUpon>EditarItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="ChecklistsDataSet.xsc">
+      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ChecklistsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ChecklistsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ChecklistsDataSet.xss">
+      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 e x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
