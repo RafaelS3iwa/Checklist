@@ -1,6 +1,9 @@
 ﻿using Checklist.Classes;
+using Checklist.Classes.Abas;
 using Checklist.Panels;
 using Checklist.Panels.Abas.ADM;
+using Checklist.Panels.Abas.Cadastro_e_Edição;
+using Checklist.Panels.Abas.User;
 using Checklist.Panels.Cadastros_e_Login;
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,8 @@ namespace Checklist
 
         private void FormADM_Load(object sender, EventArgs e)
         {
-
+            checkBoxView();
+            CbAbasView();
         }
 
         public void checkBoxView()
@@ -44,8 +48,9 @@ namespace Checklist
                     adapter.Fill(table);
 
                     DataRow clienteRow = table.NewRow();
-                    clienteRow["nome"] = "CLIENTE";
+                    clienteRow["nome"] = "Selecionar Cliente";
                     table.Rows.InsertAt(clienteRow, 0);
+
 
                     DataRow adicionarClienteRow = table.NewRow();
                     adicionarClienteRow["nome"] = "Adicionar Cliente";
@@ -62,54 +67,40 @@ namespace Checklist
             }
         }
 
-        private void panelPreflight_Click(object sender, EventArgs e)
-        {
-            IniciarPreflight();
-        }
-
-        private void panelProof_Click(object sender, EventArgs e)
-        {
-            IniciarProof();
-        }
-
-        private void panelLiberacao_Click(object sender, EventArgs e)
-        {
-            IniciarLiberacao();
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem is DataRowView selectedRow)
             {
-                if (selectedRow.Row["nome"].ToString() == "CLIENTE")
+                if (selectedRow.Row["nome"].ToString() == "Selecionar Cliente")
                 {
-                    SessaoId.LimparId();
+                    return;
                 }
-                else if (selectedRow.Row["nome"].ToString() == "Adicionar Cliente")
+                else
                 {
-                    CadastroCliente cadastroCliente = new CadastroCliente();
-                    cadastroCliente.Show();
-                }
-                else if (selectedRow.Row["id_cliente"] is int id)
-                {
-                    string nome = selectedRow["nome"].ToString();
+                    DataTable table = (DataTable)comboBox1.DataSource;
+                    DataRow[] rowsToDelete = table.Select("nome = 'Selecionar Cliente'");
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        table.Rows.Remove(rowToDelete);
+                        comboBox1.SelectedItem = selectedRow;
+                    }
 
-                    Cliente cliente = new Cliente(id, nome);
-                    SessaoId.ArmazenarId(cliente);
+                    if (selectedRow.Row["nome"].ToString() == "Adicionar Cliente")
+                    {
+                        CadastroCliente cadastroCliente = new CadastroCliente();
+                        cadastroCliente.Show();
+                    }
+                    else if (selectedRow.Row["id_cliente"] is int id)
+                    {
+                        string nome = selectedRow["nome"].ToString();
 
-                    if (panelPreflight.BorderStyle == BorderStyle.Fixed3D)
-                    {
-                        IniciarPreflight();
+                        Cliente cliente = new Cliente(id, nome);
+                        SessaoId.ArmazenarId(cliente);
+
+                        CbAbasView();
+                        FecharAbas();
                     }
-                    else if(panelProof.BorderStyle == BorderStyle.Fixed3D)
-                    {
-                        IniciarProof();
-                    }
-                    else if(panelLiberacao.BorderStyle == BorderStyle.Fixed3D)
-                    {
-                        IniciarLiberacao();
-                    }
-                }
+                }     
             }
         }
 
@@ -129,54 +120,18 @@ namespace Checklist
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
-            this.Close();
-        }
+            Guia guia = SessaoAba.AbaAtual;
 
-        private void IniciarPreflight()
-        {
-            panelPreflight.BorderStyle = BorderStyle.Fixed3D;
-            panelProof.BorderStyle = BorderStyle.None;
-            panelLiberacao.BorderStyle = BorderStyle.None;
+            if(guia != null)
+            {
+                EditarAba editarAba = new EditarAba();
+                editarAba.Show();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um cliente e uma aba para editar.", "Aviso", MessageBoxButtons.OK);
+            }
 
-            PreflightADM preflight = new PreflightADM();
-            preflight.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(preflight);
-            preflight.BringToFront();
-            preflight.Show();
-        }
-
-        private void IniciarProof()
-        {
-            panelPreflight.BorderStyle = BorderStyle.None;
-            panelProof.BorderStyle = BorderStyle.Fixed3D;
-            panelLiberacao.BorderStyle = BorderStyle.None;
-
-            ProofADM proof = new ProofADM();
-            proof.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(proof);
-            proof.BringToFront();
-            proof.Show();
-        }
-
-        private void IniciarLiberacao()
-        {
-            panelPreflight.BorderStyle = BorderStyle.None;
-            panelProof.BorderStyle = BorderStyle.None;
-            panelLiberacao.BorderStyle = BorderStyle.Fixed3D;
-
-            LiberacaoADM liberacao = new LiberacaoADM();
-            liberacao.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(liberacao);
-            liberacao.BringToFront();
-            liberacao.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -193,15 +148,125 @@ namespace Checklist
             }
         }
 
-        private void FormADM_Activated(object sender, EventArgs e)
-        {
-            checkBoxView();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();
+        }
+
+        private void CbAbas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cliente cliente = SessaoId.IdAtual;
+            if (CbAbas.SelectedItem is DataRowView selectedRow)
+            {
+                if(selectedRow.Row["aba"].ToString() == "Selecionar Aba")
+                {
+                    return;
+                }
+                else
+                {
+                    DataTable table = (DataTable)CbAbas.DataSource;
+                    DataRow[] rowsToDelete = table.Select("aba = 'Selecionar Aba'");
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        table.Rows.Remove(rowToDelete);
+                        CbAbas.SelectedItem = selectedRow;
+                    }
+
+                    if (selectedRow.Row["id_aba"] is int id)
+                    {
+                        string aba = selectedRow["aba"].ToString();
+                        Guia guia = new Guia(id, aba);
+                        SessaoAba.ArmazenarAba(guia);
+
+                        IniciarAbas();
+                    }
+                    else if (selectedRow.Row["aba"].ToString() == "Adicionar Aba")
+                    {
+                        CadastroAba cadastroAba = new CadastroAba();
+                        cadastroAba.Show();
+                    } 
+                }
+            }
+        }
+
+        public void CbAbasView()
+        {
+            string connectionString = "Data Source=.;initial catalog=Checklists;integrated security=true;";
+
+            Cliente cliente = SessaoId.IdAtual;
+
+            if (cliente != null)
+            {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        SqlCommand cmd = new SqlCommand("SELECT * FROM Abas WHERE id_cliente=@id_cliente", conn);
+                        cmd.Parameters.AddWithValue("@id_cliente", cliente.getId());
+
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+
+                        DataRow abaRow = table.NewRow();
+                        abaRow["aba"] = "Selecionar Aba";
+                        table.Rows.InsertAt(abaRow, 0);
+
+                        DataRow adicionarAbaRow = table.NewRow();
+                        adicionarAbaRow["aba"] = "Adicionar Aba";
+                        table.Rows.InsertAt(adicionarAbaRow, 1);
+
+                        CbAbas.DataSource = table;
+                        CbAbas.DisplayMember = "aba";
+                        CbAbas.ValueMember = "id_aba";
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show($"Error connecting to database: {ex.Message}");
+                }
+            }
+            else
+            {
+                CbAbas.Items.Add("Selecionar Aba");
+
+                CbAbas.SelectedIndex = 0;
+            }
+        }
+
+        private void IniciarAbas()
+        {
+            AbasADM abasADM = new AbasADM();
+            abasADM.TopLevel = false;
+
+            if (panel1.Controls.Count > 0)
+                panel1.Controls.Clear();
+            panel1.Controls.Add(abasADM);
+            abasADM.BringToFront();
+            abasADM.Show();
+        }
+
+        private void FecharAbas()
+        {
+            AbasADM abasADM = new AbasADM();
+            abasADM.TopLevel = false;
+
+            if (panel1.Controls.Count > 0)
+                panel1.Controls.Clear();
+            panel1.Controls.Add(abasADM);
+            abasADM.SendToBack();
+            abasADM.Close();
+        }
+
+        private void BtnVoltar_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Close();
         }
     }
 }

@@ -158,25 +158,31 @@ namespace Checklist.Panels
 
             int itemId = Convert.ToInt32(btn.Tag);
 
-            using (SqlConnection conn = new SqlConnection("Data Source=.;initial catalog=Checklists;integrated security=true;"))
+            DialogResult resultado = MessageBox.Show("Tem certeza que deseja excluir este cliente?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.Yes)
             {
-                conn.Open();
-
-                string sql = "DELETE FROM Itens WHERE id_item = @id_item";
-
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                using (SqlConnection conn = new SqlConnection("Data Source=.;initial catalog=Checklists;integrated security=true;"))
                 {
-                    cmd.Parameters.AddWithValue("@id_item", itemId);
+                    conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                    string sql = "DELETE FROM Itens WHERE id_item = @id_item";
 
-                    MessageBox.Show("Item apagado com sucesso!");
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_item", itemId);
 
-                    FormADM formADM = new FormADM();
-                    formADM.Hide();
-                    formADM.Show();
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Item apagado com sucesso!");
+
+                        FormADM formADM = new FormADM();
+                        formADM.Hide();
+                        formADM.Show();
+                    }
                 }
             }
+          
         }
 
         private void BtnDetalhes_Click(object sender, EventArgs e)

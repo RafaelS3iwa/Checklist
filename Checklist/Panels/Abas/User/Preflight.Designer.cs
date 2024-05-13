@@ -29,20 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.checklistsDataSet = new Checklist.ChecklistsDataSet();
             this.checklistsDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.checklistsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checklistsDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // checklistsDataSet
             // 
-            this.checklistsDataSet.DataSetName = "ChecklistsDataSet";
-            this.checklistsDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // checklistsDataSetBindingSource
             // 
-            this.checklistsDataSetBindingSource.DataSource = this.checklistsDataSet;
             this.checklistsDataSetBindingSource.Position = 0;
             // 
             // Preflight
@@ -55,7 +50,6 @@
             this.Name = "Preflight";
             this.Text = "Preflight";
             this.Load += new System.EventHandler(this.Preflight_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.checklistsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checklistsDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -63,7 +57,6 @@
 
         #endregion
 
-        private ChecklistsDataSet checklistsDataSet;
         private System.Windows.Forms.BindingSource checklistsDataSetBindingSource;
     }
 }

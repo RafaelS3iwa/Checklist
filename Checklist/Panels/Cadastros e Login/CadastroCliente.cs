@@ -21,7 +21,7 @@ namespace Checklist.Panels
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TxtNome.Text))
+            if (string.IsNullOrEmpty(TxtNome.Text) || string.IsNullOrWhiteSpace(TxtAba.Text))
             {
                 MessageBox.Show("Preencha o campo 'Nome' para realizar o cadastro.", "Aviso", MessageBoxButtons.OK);
                 return;
@@ -36,26 +36,34 @@ namespace Checklist.Panels
                     {
                         conn.Open();
 
-                        string insertQuery = "INSERT INTO Clientes (nome) VALUES (@nome)";
+                        string insertQuery = "INSERT INTO Clientes (nome) OUTPUT INSERTED.id_cliente VALUES (@nome)";
 
                         using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@nome", TxtNome.Text);
 
-                            int rowsAffected = cmd.ExecuteNonQuery();
+                            int idCliente = Convert.ToInt32(cmd.ExecuteScalar());
 
-                            if (rowsAffected > 0)
+                            if (idCliente > 0)
                             {
-                                MessageBox.Show("Cliente inserido com sucesso!");
+                                string adicionarAba = "INSERT INTO Abas (aba, id_cliente) VALUES (@aba, @id_cliente)"; 
 
-                                FormADM formADM = new FormADM();
-                                formADM.checkBoxView();
+                                using(SqlCommand command = new SqlCommand(adicionarAba, conn))
+                                {
+                                    command.Parameters.AddWithValue("@aba", TxtAba.Text);
+                                    command.Parameters.AddWithValue("@id_cliente", idCliente);
 
-                                this.Hide();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Nenhum registro foi inserido.");
+                                    int rows = command.ExecuteNonQuery();
+                                    if (rows > 0)
+                                    {
+                                        MessageBox.Show("Cliente inserido com sucesso!");
+
+                                        FormADM formADM = new FormADM();
+                                        formADM.checkBoxView();
+
+                                        this.Close();
+                                    }
+                                }
                             }
                         }
                     }
@@ -68,6 +76,11 @@ namespace Checklist.Panels
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }

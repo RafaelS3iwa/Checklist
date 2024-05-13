@@ -1,4 +1,6 @@
-﻿using Checklist.Classes.Item;
+﻿using Checklist.Classes.Abas;
+using Checklist.Classes;
+using Checklist.Classes.Item;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,18 +26,32 @@ namespace Checklist.Panels.Checklists
             Item item = SessaoItem.ItemAtual;
 
             TxtNome.Text = item.getnome();
-            CbTipo.Text = item.getTipo();
             TxtDescricao.Text = item.getDescricao();
 
             LblCriacao.Text = item.getCriacao().ToString("dd/MM/yyyy");
             LblAtualizacao.Text = item.getAtualizacao().ToString("dd/MM/yyyy");
 
-            LblStatus.Text = item.getSituacao().ToString();
+            if (item.getSituacao() == 0)
+            {
+                LblStatus.Text = "Não realizado";
+            }
+            else
+            {
+                LblStatus.Text = "Realizado";
+            }
+
+            CarregarCategoria();
+
+            SessaoAba.LimparAba();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DetalheChecklistADM detalheChecklistADM = new DetalheChecklistADM();
+            detalheChecklistADM.Close();
+
             Item itens = SessaoItem.ItemAtual;
+            Guia guia = SessaoAba.AbaAtual;
 
             using (SqlConnection conn = new SqlConnection("Data Source=.;initial catalog=Checklists;integrated security=true;"))
             {
@@ -47,8 +63,7 @@ namespace Checklist.Panels.Checklists
                     cmd.Parameters.AddWithValue("@id_item", itens.getId());
                     cmd.Parameters.AddWithValue("@nome_item", TxtNome.Text);
 
-                    string tipo = CbTipo.SelectedItem.ToString();
-                    cmd.Parameters.AddWithValue("@tipo", tipo);
+                    cmd.Parameters.AddWithValue("@tipo", guia.getNome());
                     cmd.Parameters.AddWithValue("@descricao", TxtDescricao.Text);
 
                     cmd.ExecuteNonQuery();
@@ -63,6 +78,55 @@ namespace Checklist.Panels.Checklists
         }
 
         private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Item item = SessaoItem.ItemAtual;
+            if (CbAbas.SelectedItem is DataRowView selectedRow)
+            {
+                if (selectedRow.Row["id_aba"] is int id)
+                {
+                    string aba = selectedRow["aba"].ToString();
+                    Guia guia = new Guia(id, aba);
+                    SessaoAba.ArmazenarAba(guia);
+                }
+            }
+        }
+
+        public void CarregarCategoria()
+        {
+            string connectionString = "Data Source=.;initial catalog=Checklists;integrated security=true;";
+            Cliente cliente = SessaoId.IdAtual;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Abas WHERE id_cliente=@id_cliente", conn);
+                    cmd.Parameters.AddWithValue("@id_cliente", cliente.getId());
+
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+
+                    CbAbas.DataSource = table;
+                    CbAbas.DisplayMember = "aba";
+                    CbAbas.ValueMember = "id_aba";
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Error connecting to database: {ex.Message}");
+            }
+        }
+
+        private void BtnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
         }

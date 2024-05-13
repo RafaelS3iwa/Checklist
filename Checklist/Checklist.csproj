@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Rafael\Downloads\</PublishUrl>
+    <PublishUrl>C:\Users\Rafael\OneDrive\Área de Trabalho\CheckList Setup\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,9 +23,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>Gerenciador de Tarefas</ProductName>
+    <PublisherName>Rafael Inoue</PublisherName>
+    <SuiteName>Seiwa</SuiteName>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -59,6 +63,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>test.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -75,11 +82,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChecklistsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\Abas\Guia.cs" />
+    <Compile Include="Classes\Abas\SessaoAba.cs" />
     <Compile Include="Classes\Cliente\Cliente.cs" />
     <Compile Include="Classes\Cliente\SessaoId.cs" />
     <Compile Include="Classes\Item\Item.cs" />
@@ -96,17 +100,29 @@
     <Compile Include="FormADM.Designer.cs">
       <DependentUpon>FormADM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Abas\ADM\LiberacaoADM.cs">
+    <Compile Include="Panels\Abas\ADM\AbasADM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Abas\ADM\LiberacaoADM.Designer.cs">
-      <DependentUpon>LiberacaoADM.cs</DependentUpon>
+    <Compile Include="Panels\Abas\ADM\AbasADM.Designer.cs">
+      <DependentUpon>AbasADM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Abas\ADM\ProofADM.cs">
+    <Compile Include="Panels\Abas\Cadastro e Edição\CadastroAba.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Abas\ADM\ProofADM.Designer.cs">
-      <DependentUpon>ProofADM.cs</DependentUpon>
+    <Compile Include="Panels\Abas\Cadastro e Edição\CadastroAba.Designer.cs">
+      <DependentUpon>CadastroAba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\Cadastro e Edição\EditarAba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\Cadastro e Edição\EditarAba.Designer.cs">
+      <DependentUpon>EditarAba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Abas\User\AbasUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\Abas\User\AbasUser.Designer.cs">
+      <DependentUpon>AbasUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\Cadastros e Login\CadastroCliente.cs">
       <SubType>Form</SubType>
@@ -138,12 +154,6 @@
     <Compile Include="Panels\Cadastros e Login\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Abas\User\Liberacao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Panels\Abas\User\Liberacao.Designer.cs">
-      <DependentUpon>Liberacao.cs</DependentUpon>
-    </Compile>
     <Compile Include="Panels\Abas\User\Preflight.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,12 +165,6 @@
     </Compile>
     <Compile Include="Panels\Abas\ADM\PreflightADM.Designer.cs">
       <DependentUpon>PreflightADM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\Abas\User\Proof.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Panels\Abas\User\Proof.Designer.cs">
-      <DependentUpon>Proof.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\Checklists\DetalheChecklistADM.cs">
       <SubType>Form</SubType>
@@ -182,11 +186,17 @@
     <EmbeddedResource Include="FormADM.resx">
       <DependentUpon>FormADM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Abas\ADM\LiberacaoADM.resx">
-      <DependentUpon>LiberacaoADM.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\Abas\ADM\AbasADM.resx">
+      <DependentUpon>AbasADM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Abas\ADM\ProofADM.resx">
-      <DependentUpon>ProofADM.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\Abas\Cadastro e Edição\CadastroAba.resx">
+      <DependentUpon>CadastroAba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\Cadastro e Edição\EditarAba.resx">
+      <DependentUpon>EditarAba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Abas\User\AbasUser.resx">
+      <DependentUpon>AbasUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Cadastros e Login\CadastroCliente.resx">
       <DependentUpon>CadastroCliente.cs</DependentUpon>
@@ -203,17 +213,11 @@
     <EmbeddedResource Include="Panels\Cadastros e Login\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Abas\User\Liberacao.resx">
-      <DependentUpon>Liberacao.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Panels\Abas\User\Preflight.resx">
       <DependentUpon>Preflight.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Abas\ADM\PreflightADM.resx">
       <DependentUpon>PreflightADM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Abas\User\Proof.resx">
-      <DependentUpon>Proof.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Checklists\DetalheChecklistADM.resx">
       <DependentUpon>DetalheChecklistADM.cs</DependentUpon>
@@ -231,17 +235,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ChecklistsDataSet.xsc">
-      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ChecklistsDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ChecklistsDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ChecklistsDataSet.xss">
-      <DependentUpon>ChecklistsDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -279,6 +272,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Checklist.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Checklist_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Checklist.mdf</DependentUpon>
+    </Content>
+    <Content Include="test.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,6 +10,10 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using Checklist.Panels;
 using Checklist.Classes;
+using Checklist.Classes.Abas;
+using Checklist.Panels.Abas.Cadastro_e_Edição;
+using Checklist.Panels.Abas.ADM;
+using Checklist.Panels.Abas.User;
 
 namespace Checklist
 {
@@ -24,34 +28,34 @@ namespace Checklist
         {
             if (comboBox1.SelectedItem is DataRowView selectedRow)
             {
-                if (selectedRow.Row["nome"].ToString() == "CLIENTE")
+                if (selectedRow.Row["nome"].ToString() == "Selecionar Cliente")
                 {
-                    SessaoId.LimparId();
+                    return;
                 }
-                else if (selectedRow.Row["id_cliente"] is int id)
+                else
                 {
-                    string nome = selectedRow["nome"].ToString();
-
-                    Cliente cliente = new Cliente(id, nome);
-                    SessaoId.ArmazenarId(cliente);
-
-                    if (panelPreflight.BorderStyle == BorderStyle.Fixed3D)
+                    DataTable table = (DataTable)comboBox1.DataSource;
+                    DataRow[] rowsToDelete = table.Select("nome = 'Selecionar Cliente'");
+                    foreach (DataRow rowToDelete in rowsToDelete)
                     {
-                        IniciarPreflight();
+                        table.Rows.Remove(rowToDelete);
+                        comboBox1.SelectedItem = selectedRow;
                     }
-                    else if(panelProof.BorderStyle == BorderStyle.Fixed3D)
+                    if (selectedRow.Row["id_cliente"] is int id)
                     {
-                        IniciarProof();
-                    }
-                    else if(panelLiberacao.BorderStyle == BorderStyle.Fixed3D)
-                    {
-                        IniciarLiberacao();
+                        string nome = selectedRow["nome"].ToString();
+
+                        Cliente cliente = new Cliente(id, nome);
+                        SessaoId.ArmazenarId(cliente);
+
+                        CbAbasView();
+                        FecharAbas();
                     }
                 }
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void CbClientesView()
         {
             string connectionString = "Data Source=.;initial catalog=Checklists;integrated security=true;";
 
@@ -68,7 +72,7 @@ namespace Checklist
                     adapter.Fill(table);
 
                     DataRow clienteRow = table.NewRow();
-                    clienteRow["nome"] = "CLIENTE";
+                    clienteRow["nome"] = "Selecionar Cliente";
                     table.Rows.InsertAt(clienteRow, 0);
 
                     comboBox1.DataSource = table;
@@ -82,19 +86,10 @@ namespace Checklist
             }
         }
 
-        private void panelPreflight_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            IniciarPreflight();
-        }
-
-        private void panelProof_Click(object sender, EventArgs e)
-        {
-            IniciarProof();
-        }
-
-        private void panelLiberacao_Click(object sender, EventArgs e)
-        {
-            IniciarLiberacao();
+            CbClientesView();
+            CbAbasView();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -111,8 +106,7 @@ namespace Checklist
             }
             else
             {
-                // O login foi cancelado ou falhou
-                // Você pode tratar isso de acordo com sua lógica de negócios
+                return;
             }
         }
 
@@ -121,55 +115,109 @@ namespace Checklist
 
         }
 
-        private void IniciarPreflight()
-        {
-            panelPreflight.BorderStyle = BorderStyle.Fixed3D;
-            panelProof.BorderStyle = BorderStyle.None;
-            panelLiberacao.BorderStyle = BorderStyle.None;
-
-            Preflight preflight = new Preflight();
-            preflight.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(preflight);
-            preflight.BringToFront();
-            preflight.Show();
-        }
-
-        private void IniciarProof()
-        {
-            panelPreflight.BorderStyle = BorderStyle.None;
-            panelProof.BorderStyle = BorderStyle.Fixed3D;
-            panelLiberacao.BorderStyle = BorderStyle.None;
-
-            Proof proof = new Proof();
-            proof.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(proof);
-            proof.BringToFront();
-            proof.Show();
-        }
-
-        private void IniciarLiberacao()
-        {
-            panelPreflight.BorderStyle = BorderStyle.None;
-            panelProof.BorderStyle = BorderStyle.None;
-            panelLiberacao.BorderStyle = BorderStyle.Fixed3D;
-
-            Liberacao liberacao = new Liberacao();
-            liberacao.TopLevel = false;
-            if (panel1.Controls.Count > 0)
-                panel1.Controls.Clear();
-            panel1.Controls.Add(liberacao);
-            liberacao.BringToFront();
-            liberacao.Show();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
             Application.Exit();
+        }
+
+        private void CbAbas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cliente cliente = SessaoId.IdAtual;
+            if (CbAbas.SelectedItem is DataRowView selectedRow)
+            {
+                if (selectedRow.Row["aba"].ToString() == "Selecionar Aba")
+                {
+                    return;
+                }
+                else
+                {
+                    DataTable table = (DataTable)CbAbas.DataSource;
+                    DataRow[] rowsToDelete = table.Select("aba = 'Selecionar Aba'");
+                    foreach (DataRow rowToDelete in rowsToDelete)
+                    {
+                        table.Rows.Remove(rowToDelete);
+                        CbAbas.SelectedItem = selectedRow;
+                    }
+
+                    if (selectedRow.Row["id_aba"] is int id)
+                    {
+                        string aba = selectedRow["aba"].ToString();
+                        Guia guia = new Guia(id, aba);
+                        SessaoAba.ArmazenarAba(guia);
+
+                        IniciarAbas();
+                    }
+                }
+            }
+        }
+
+        public void CbAbasView()
+        {
+            string connectionString = "Data Source=.;initial catalog=Checklists;integrated security=true;";
+
+            Cliente cliente = SessaoId.IdAtual;
+
+            if (cliente != null)
+            {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+
+                        SqlCommand cmd = new SqlCommand("SELECT * FROM Abas WHERE id_cliente=@id_cliente", conn);
+                        cmd.Parameters.AddWithValue("@id_cliente", cliente.getId());
+
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+
+                        DataRow abaRow = table.NewRow();
+                        abaRow["aba"] = "Selecionar Aba";
+                        table.Rows.InsertAt(abaRow, 0);
+
+                        CbAbas.DataSource = table;
+                        CbAbas.DisplayMember = "aba";
+                        CbAbas.ValueMember = "id_aba";
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show($"Error connecting to database: {ex.Message}");
+                }
+            }
+            else
+            {
+                CbAbas.Items.Add("Selecionar Aba");
+
+                CbAbas.SelectedIndex = 0;
+            }
+        }
+
+        private void IniciarAbas()
+        {
+            AbasUser abasUser = new AbasUser();
+            abasUser.TopLevel = false;
+
+            if (panel1.Controls.Count > 0)
+                panel1.Controls.Clear();
+            panel1.Controls.Add(abasUser);
+            abasUser.BringToFront();
+            abasUser.Show();
+        }
+
+        private void FecharAbas()
+        {
+            AbasADM abasADM = new AbasADM();
+            abasADM.TopLevel = false;
+
+            if (panel1.Controls.Count > 0)
+                panel1.Controls.Clear();
+            panel1.Controls.Add(abasADM);
+            abasADM.SendToBack();
+            abasADM.Close();
         }
     }
 }

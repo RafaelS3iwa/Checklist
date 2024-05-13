@@ -76,11 +76,20 @@ namespace Checklist.Panels.Cadastros_e_Login
                     {
                         conn.Open();
 
-                        string deleteItem = "DELETE FROM Itens WHERE id_item IN (SELECT id_item FROM Checklist WHERE id_cliente=@id_cliente)";
+                        string deleteItem = "DELETE FROM Itens WHERE id_item NOT IN (SELECT id_item FROM Checklist)";
 
                         string deleteChecklist = "DELETE FROM Checklist WHERE id_cliente=@id_cliente";
 
                         string deleteCliente = "DELETE FROM Clientes WHERE id_cliente=@id_cliente";
+
+                        string deleteAba = "DELETE FROM Abas WHERE id_cliente=@id_cliente";
+
+                        using (SqlCommand cmd = new SqlCommand(deleteChecklist, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@id_cliente", cliente.getId());
+
+                            cmd.ExecuteNonQuery();
+                        }
 
                         using (SqlCommand cmd = new SqlCommand(deleteItem, conn))
                         {
@@ -89,7 +98,8 @@ namespace Checklist.Panels.Cadastros_e_Login
                             cmd.ExecuteNonQuery();
                         }
 
-                        using (SqlCommand cmd = new SqlCommand(deleteChecklist, conn))
+
+                        using (SqlCommand cmd = new SqlCommand(deleteAba, conn))
                         {
                             cmd.Parameters.AddWithValue("@id_cliente", cliente.getId());
 
@@ -102,11 +112,14 @@ namespace Checklist.Panels.Cadastros_e_Login
 
                             cmd.ExecuteNonQuery();
                         }
+             
                         MessageBox.Show($"O cliente foi excluído com sucesso.");
                         this.Close();
 
+
                         FormADM formADM = new FormADM();
-                        formADM.checkBoxView();
+                        formADM.Hide();
+                        formADM.Show();
 
                     }
                 }
@@ -114,7 +127,21 @@ namespace Checklist.Panels.Cadastros_e_Login
                 {
                     MessageBox.Show($"Error connecting to database: {ex.Message}");
                 }
+            }
+            else
+            {
+                return;
             }     
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

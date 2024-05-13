@@ -18,7 +18,7 @@ namespace Checklist
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnConfirmar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TxtUser.Text) || string.IsNullOrWhiteSpace(TxtSenha.Text))
             {
@@ -37,19 +37,26 @@ namespace Checklist
                 }
                 else
                 {
+                    TxtUser.Text = null; 
+                    TxtSenha.Text = null;
                     MessageBox.Show("Usuário ou senha incorretos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void BtnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

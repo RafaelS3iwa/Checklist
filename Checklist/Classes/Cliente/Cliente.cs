@@ -15,6 +15,7 @@ namespace Checklist
         {
             _id = id;
             _nome = nome;
+
         }
 
         public int getId() 

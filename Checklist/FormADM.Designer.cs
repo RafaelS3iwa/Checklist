@@ -29,26 +29,19 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panelLiberacao = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panelProof = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panelPreflight = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.CbAbas = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Cabecalho = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnAdicionar = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.BtnVoltar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnAdicionar = new System.Windows.Forms.Button();
+            this.BtnEditarAba = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            this.panelLiberacao.SuspendLayout();
-            this.panelProof.SuspendLayout();
-            this.panelPreflight.SuspendLayout();
             this.Cabecalho.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -56,78 +49,29 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel2.Controls.Add(this.panelLiberacao);
-            this.panel2.Controls.Add(this.panelProof);
-            this.panel2.Controls.Add(this.panelPreflight);
+            this.panel2.Controls.Add(this.CbAbas);
             this.panel2.Location = new System.Drawing.Point(0, 134);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(421, 51);
+            this.panel2.Size = new System.Drawing.Size(421, 40);
             this.panel2.TabIndex = 7;
             // 
-            // panelLiberacao
+            // CbAbas
             // 
-            this.panelLiberacao.Controls.Add(this.label5);
-            this.panelLiberacao.Location = new System.Drawing.Point(278, 0);
-            this.panelLiberacao.Name = "panelLiberacao";
-            this.panelLiberacao.Size = new System.Drawing.Size(143, 39);
-            this.panelLiberacao.TabIndex = 10;
-            this.panelLiberacao.Click += new System.EventHandler(this.panelLiberacao_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(125, 24);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "LIBERAÇÃO";
-            this.label5.Click += new System.EventHandler(this.panelLiberacao_Click);
-            // 
-            // panelProof
-            // 
-            this.panelProof.Controls.Add(this.label4);
-            this.panelProof.Location = new System.Drawing.Point(134, 0);
-            this.panelProof.Name = "panelProof";
-            this.panelProof.Size = new System.Drawing.Size(147, 39);
-            this.panelProof.TabIndex = 9;
-            this.panelProof.Click += new System.EventHandler(this.panelProof_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(30, 8);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 24);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "PROOF";
-            this.label4.Click += new System.EventHandler(this.panelProof_Click);
-            // 
-            // panelPreflight
-            // 
-            this.panelPreflight.Controls.Add(this.label3);
-            this.panelPreflight.Location = new System.Drawing.Point(1, 0);
-            this.panelPreflight.Name = "panelPreflight";
-            this.panelPreflight.Size = new System.Drawing.Size(134, 39);
-            this.panelPreflight.TabIndex = 8;
-            this.panelPreflight.Click += new System.EventHandler(this.panelPreflight_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(5, 7);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 24);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "PREFLIGHT";
-            this.label3.Click += new System.EventHandler(this.panelPreflight_Click);
+            this.CbAbas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbAbas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbAbas.FormattingEnabled = true;
+            this.CbAbas.Location = new System.Drawing.Point(12, 5);
+            this.CbAbas.Name = "CbAbas";
+            this.CbAbas.Size = new System.Drawing.Size(397, 24);
+            this.CbAbas.TabIndex = 5;
+            this.CbAbas.SelectedIndexChanged += new System.EventHandler(this.CbAbas_SelectedIndexChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Selecionar Cliente"});
             this.comboBox1.Location = new System.Drawing.Point(62, 102);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(261, 24);
@@ -145,7 +89,7 @@
             // 
             // Cabecalho
             // 
-            this.Cabecalho.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Cabecalho.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.Cabecalho.Controls.Add(this.label1);
             this.Cabecalho.Controls.Add(this.label2);
             this.Cabecalho.Controls.Add(this.panel3);
@@ -154,15 +98,6 @@
             this.Cabecalho.Name = "Cabecalho";
             this.Cabecalho.Size = new System.Drawing.Size(421, 91);
             this.Cabecalho.TabIndex = 4;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(421, 23);
-            this.panel3.TabIndex = 2;
             // 
             // label1
             // 
@@ -176,42 +111,42 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "CheckHUB";
             // 
-            // BtnAdicionar
+            // label2
             // 
-            this.BtnAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAdicionar.Location = new System.Drawing.Point(62, 629);
-            this.BtnAdicionar.Name = "BtnAdicionar";
-            this.BtnAdicionar.Size = new System.Drawing.Size(142, 36);
-            this.BtnAdicionar.TabIndex = 0;
-            this.BtnAdicionar.Text = "Adicionar";
-            this.BtnAdicionar.UseVisualStyleBackColor = true;
-            this.BtnAdicionar.Click += new System.EventHandler(this.BtnAdicionar_Click);
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(154, 66);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Administrador";
             // 
-            // button3
+            // panel3
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(230, 629);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(142, 36);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Fechar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.panel3.Controls.Add(this.BtnVoltar);
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(421, 23);
+            this.panel3.TabIndex = 2;
             // 
-            // button2
+            // BtnVoltar
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::Checklist.Properties.Resources.edit;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(354, 97);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(33, 31);
-            this.button2.TabIndex = 9;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.BtnVoltar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnVoltar.BackgroundImage = global::Checklist.Properties.Resources.back_arrow;
+            this.BtnVoltar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnVoltar.FlatAppearance.BorderSize = 0;
+            this.BtnVoltar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVoltar.ForeColor = System.Drawing.Color.White;
+            this.BtnVoltar.Location = new System.Drawing.Point(0, 1);
+            this.BtnVoltar.Name = "BtnVoltar";
+            this.BtnVoltar.Size = new System.Drawing.Size(49, 22);
+            this.BtnVoltar.TabIndex = 3;
+            this.BtnVoltar.UseVisualStyleBackColor = false;
+            this.BtnVoltar.Click += new System.EventHandler(this.BtnVoltar_Click);
             // 
             // button1
             // 
@@ -228,16 +163,42 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label2
+            // BtnAdicionar
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(154, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 20);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Administrador";
+            this.BtnAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAdicionar.Location = new System.Drawing.Point(28, 629);
+            this.BtnAdicionar.Name = "BtnAdicionar";
+            this.BtnAdicionar.Size = new System.Drawing.Size(166, 36);
+            this.BtnAdicionar.TabIndex = 0;
+            this.BtnAdicionar.Text = "Adicionar Item";
+            this.BtnAdicionar.UseVisualStyleBackColor = true;
+            this.BtnAdicionar.Click += new System.EventHandler(this.BtnAdicionar_Click);
+            // 
+            // BtnEditarAba
+            // 
+            this.BtnEditarAba.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnEditarAba.Location = new System.Drawing.Point(221, 629);
+            this.BtnEditarAba.Name = "BtnEditarAba";
+            this.BtnEditarAba.Size = new System.Drawing.Size(166, 36);
+            this.BtnEditarAba.TabIndex = 8;
+            this.BtnEditarAba.Text = "Editar Aba";
+            this.BtnEditarAba.UseVisualStyleBackColor = true;
+            this.BtnEditarAba.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::Checklist.Properties.Resources.edit;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.Transparent;
+            this.button2.Location = new System.Drawing.Point(354, 97);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 31);
+            this.button2.TabIndex = 9;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FormADM
             // 
@@ -245,7 +206,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 687);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.BtnEditarAba);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.BtnAdicionar);
             this.Controls.Add(this.panel2);
@@ -255,15 +216,8 @@
             this.Name = "FormADM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormADM";
-            this.Activated += new System.EventHandler(this.FormADM_Activated);
             this.Load += new System.EventHandler(this.FormADM_Load);
             this.panel2.ResumeLayout(false);
-            this.panelLiberacao.ResumeLayout(false);
-            this.panelLiberacao.PerformLayout();
-            this.panelProof.ResumeLayout(false);
-            this.panelProof.PerformLayout();
-            this.panelPreflight.ResumeLayout(false);
-            this.panelPreflight.PerformLayout();
             this.Cabecalho.ResumeLayout(false);
             this.Cabecalho.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -278,17 +232,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel Cabecalho;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panelLiberacao;
-        private System.Windows.Forms.Panel panelProof;
-        private System.Windows.Forms.Panel panelPreflight;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button BtnAdicionar;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BtnEditarAba;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox CbAbas;
+        private System.Windows.Forms.Button BtnVoltar;
     }
 }

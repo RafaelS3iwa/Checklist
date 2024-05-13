@@ -27,7 +27,14 @@ namespace Checklist.Panels.Checklists
             LblCriacao.Text = item.getCriacao().ToString("dd/MM/yyyy");
             LblAtualizacao.Text = item.getAtualizacao().ToString("dd/MM/yyyy");
 
-            LblStatus.Text = item.getSituacao().ToString();
+            if(item.getSituacao() == 0)
+            {
+                LblStatus.Text = "Não realizado";
+            }
+            else
+            {
+                LblStatus.Text = "Realizado";
+            }
         }
 
         private void DetalheChecklistADM_Load(object sender, EventArgs e)
